@@ -72,7 +72,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{vault:bearer_token}}",
+							"value": "{{access_token}}",
 							"type": "string"
 						}
 					]
@@ -88,7 +88,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"Pedro Alonso\",\n    \"email\": \"pedro@alonso.com\",\n    \"mobile_phone\": \"34999111222\"\n    \n}",
+					"raw": "{\n    \"name\": \"Pedro Alonso\",\n    \"email\": \"ped122ro@alonso.com\",\n    \"mobile_phone\": \"34999111222\",\n    \"password\" : \"()PASttwordui123\",\n    \"roles\" : \"{}\"\n    \n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -161,7 +161,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"pedr2s1o@alonso.com\",\n    \"password\": \"()PASttwordui123\"\n    \n}",
+					"raw": "{\n    \"email\": \"ped12ro@alonso.com\",\n    \"password\": \"()PASttwordui123\"\n    \n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -180,6 +180,35 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:8080",
+			"type": "string"
 		}
 	]
 }
