@@ -5,6 +5,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ../carer_front/frontend:/app
+      - /app/node_modules
     working_dir: /app
     ports:
       - "3000:3000"
