@@ -1,25 +1,28 @@
 services:
   frontend:
     build:
-      context: ../carer_front/frontend
+      context: ../socialcarerfront/frontend
       dockerfile: Dockerfile
+<<<<<<< Updated upstream
     volumes:
       - ../carer_front/frontend:/app
       - /app/node_modules
+=======
+
+>>>>>>> Stashed changes
     working_dir: /app
     ports:
       - "3000:3000"
     depends_on:
-      - frontbackend
+      - middleware
     environment:
       - NODE_OPTIONS=--openssl-legacy-provider
 
-  frontbackend:
+  middleware:
     build:
-      context: ../carer_front/backend
+      context: ../socialcarerfront/middleware
       dockerfile: Dockerfile
-    volumes:
-      - ../carer_front/backend:/app
+
     ports:
       - "5000:5000"
     environment:
@@ -30,10 +33,9 @@ services:
 
   backend:
     build:
-      context: ../carer_backend
+      context: ../socialcarer
       dockerfile: Dockerfile
-    volumes:
-      - ../carer_backend:/app
+
     ports:
       - "8080:8080"
     environment:
