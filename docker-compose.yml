@@ -3,13 +3,6 @@ services:
     build:
       context: ../socialcarerfront/frontend
       dockerfile: Dockerfile
-<<<<<<< Updated upstream
-    volumes:
-      - ../carer_front/frontend:/app
-      - /app/node_modules
-=======
-
->>>>>>> Stashed changes
     working_dir: /app
     ports:
       - "3000:3000"
