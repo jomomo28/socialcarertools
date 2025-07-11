@@ -1,4 +1,4 @@
-up: backend middleware front
+up: up_backend up_middleware up_front
 
 down:
 	docker compose down
@@ -11,14 +11,14 @@ restart: down up
 logs:
 	docker compose logs -f
 
-front:
-	docker compose up front
+up_front:
+	docker compose up -d frontend
 
-middleware:
-	docker compose up middleware
+up_middleware:
+	docker compose up -d middleware
 
-backend:
-	docker compose up backend
+up_backend:
+	docker compose up -d backend
 
 clean:
 	docker compose down --remove-orphans
