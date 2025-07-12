@@ -1,4 +1,4 @@
-up: up_backend up_middleware up_front
+up: up_backend up_middleware up_front up_grafana
 
 down:
 	docker compose down
@@ -19,6 +19,9 @@ up_middleware:
 
 up_backend:
 	docker compose up -d backend
+
+up_grafana:
+	docker compose up -d grafana
 
 clean:
 	docker compose down --remove-orphans
