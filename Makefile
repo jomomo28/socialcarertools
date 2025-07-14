@@ -1,4 +1,4 @@
-up: up_backend up_middleware up_front up_grafana
+up: up_otel_collector up_backend up_middleware up_front up_grafana 
 
 down:
 	docker compose down
@@ -22,6 +22,9 @@ up_backend:
 
 up_grafana:
 	docker compose up -d grafana
+
+up_otel_collector:
+	docker compose up -d otel-collector
 
 clean:
 	docker compose down --remove-orphans

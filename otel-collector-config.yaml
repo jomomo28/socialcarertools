@@ -1,0 +1,54 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  batch:
+    timeout: 5s
+    send_batch_size: 1000
+  memory_limiter:
+    limit_mib: 400
+    spike_limit_mib: 100
+    check_interval: 5s
+
+exporters:
+  prometheus:
+    endpoint: "0.0.0.0:8889"
+    namespace: "opentelemetry"
+    const_labels:
+      service: "backend"  # Valor directo en lugar de variable de entorno
+
+  loki:
+    endpoint: "http://loki:3100/loki/api/v1/push"
+    # Configuración simplificada sin la sección 'labels' que causaba error
+    retry_on_failure:
+      enabled: true
+      initial_interval: 5s
+      max_interval: 30s
+      max_elapsed_time: 5m
+    timeout: 10s
+
+  debug:  # Reemplaza 'logging' por 'debug' como indica el warning
+    verbosity: basic
+
+service:
+  telemetry:
+    logs:
+      level: warn
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      processors: [memory_limiter, batch]
+      exporters: [prometheus, debug]
+    logs:
+      receivers: [otlp]
+      processors: [memory_limiter, batch]
+      exporters: [loki, debug]
+    traces:
+      receivers: [otlp]
+      processors: [memory_limiter, batch]
+      exporters: [debug]

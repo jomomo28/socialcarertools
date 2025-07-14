@@ -36,6 +36,7 @@ services:
       - SECRET_TOKEN=${SECRET_TOKEN}
     depends_on:
       - db
+      - otel-collector
 
   db:
     image: mysql:8.0
@@ -82,8 +83,11 @@ services:
     ports:
       - "4317:4317"   # OTLP gRPC
       - "4318:4318"   # OTLP HTTP
+      - "8889:8889"  # Prometheus metrics
+    depends_on:
+      - loki
+      - prometheus
  
-
 volumes:
   db_data:
   grafana-storage:
