@@ -10,6 +10,10 @@ services:
       - middleware
     environment:
       - NODE_OPTIONS=--openssl-legacy-provider
+    volumes:
+      - ../socialcarerfront/frontend/src:/app/src   # <--- mapear src
+      - ../socialcarerfront/frontend/public:/app/public
+      - /app/node_modules
 
   middleware:
     build:
@@ -23,6 +27,9 @@ services:
       - CARER_BACKEND_URL=http://backend:8080
     depends_on:
       - backend
+    volumes:
+      - ../socialcarerfront/middleware:/app
+      - /app/node_modules  
 
   backend:
     build:
