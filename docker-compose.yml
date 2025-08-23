@@ -11,7 +11,7 @@ services:
     environment:
       - NODE_OPTIONS=--openssl-legacy-provider
     volumes:
-      - ../socialcarerfront/frontend/src:/app/src   # <--- mapear src
+      - ../socialcarerfront/frontend/src:/app/src 
       - ../socialcarerfront/frontend/public:/app/public
       - /app/node_modules
 
@@ -41,6 +41,9 @@ services:
     environment:
       - DATABASE_URL=mysql+pymysql://user:password@db:3306/mydatabase
       - SECRET_TOKEN=${SECRET_TOKEN}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+    volumes:
+      - ../socialcarer:/app
     depends_on:
       - db
       - otel-collector
