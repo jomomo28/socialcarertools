@@ -65,7 +65,191 @@
 			"response": []
 		},
 		{
+			"name": "List users",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{vault:bearer_token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Pedro Alonso\",\n    \"email\": \"nas3n8@alonso.com\",\n    \"mobile_phone\": \"34999111222\",\n    \"password\" : \"()PASttwordui123\",\n    \"roles\" : \"{}\"\n    \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/users?skip=0&limit=10",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "skip",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List roles",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{vault:bearer_token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/users/roles?skip=0&limit=10",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"roles"
+					],
+					"query": [
+						{
+							"key": "skip",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List companies",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{vault:bearer_token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/users/companies?skip=0&limit=10",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"companies"
+					],
+					"query": [
+						{
+							"key": "skip",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Create user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Guarda el access_token de la respuesta en una variable global de Postman",
+							"let json = pm.response.json();",
+							"pm.globals.set(\"auth_token\", json.auth_token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -88,7 +272,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"Pedro Alonso\",\n    \"email\": \"ped122ro@alonso.com\",\n    \"mobile_phone\": \"34999111222\",\n    \"password\" : \"()PASttwordui123\",\n    \"roles\" : \"{}\"\n    \n}",
+					"raw": "{\n    \"name\": \"Pedro Alonso\",\n    \"email\": \"wSdd@alsoneso.com\",\n    \"mobile_phone\": \"34999111222\",\n    \"password\" : \"()PASttwordui123\",\n    \"roles\" : [\n        \"Mediator\", \"Nurse\"\n    ],\n    \"organization\" : \"IVASS\"\n    \n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -96,12 +280,60 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/users",
+					"raw": "{{host}}/public/users",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"public",
 						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users/me",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{auth_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{vault:bearer_token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Pedro Alonso\",\n    \"email\": \"aSSd@alsonso.com\",\n    \"mobile_phone\": \"34999111222\",\n    \"password\" : \"()PASttwordui123\",\n    \"roles\" : [\n        \"Mediator\", \"Nurse\"\n    ],\n    \"organization\" : \"IVASS\"\n    \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/users/me",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"me"
 					]
 				}
 			},
@@ -146,6 +378,19 @@
 		},
 		{
 			"name": "login OK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let json = pm.response.json();",
+							"pm.globals.set(\"auth_token\", json.auth_token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -161,7 +406,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"ped12ro@alonso.com\",\n    \"password\": \"()PASttwordui123\"\n    \n}",
+					"raw": "{\n    \"email\": \"peds12ro@alsonso.com\",\n    \"password\": \"()PASttwordui123\"\n    \n}",
 					"options": {
 						"raw": {
 							"language": "json"

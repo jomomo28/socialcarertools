@@ -42,11 +42,11 @@ services:
       - DATABASE_URL=mysql+pymysql://user:password@db:3306/mydatabase
       - SECRET_TOKEN=${SECRET_TOKEN}
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
-    volumes:
-      - ../socialcarer:/app
     depends_on:
       - db
       - otel-collector
+    volumes:
+      - ../socialcarer/src:/app/src
 
   db:
     image: mysql:8.0

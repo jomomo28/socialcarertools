@@ -3,6 +3,15 @@ up: up_otel_collector up_backend up_middleware up_front up_grafana
 down:
 	docker compose down
 
+down_front:
+	docker compose down -d frontend
+
+down_middleware:
+	docker compose down -d middleware
+
+down_backend:
+	docker compose down -d backend
+
 build:
 	docker compose build
 
