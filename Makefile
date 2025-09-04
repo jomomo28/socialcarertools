@@ -20,6 +20,29 @@ restart: down up
 logs:
 	docker compose logs -f
 
+postman:
+	docker compose run --rm newman run social-carer.postman_collection.json -e local.postman_environment.json
+
+test_backend:
+	docker compose run --rm backend pytest tests --cov=src --cov-report=xml
+
+static_analysis: static_analysis_frontend static_analysis_middleware test_backend static_analysis_backend
+
+static_analysis_frontend:
+	docker compose run --rm sonar-scanner -Dproject.settings=/usr/src/frontend/sonar-project-front.properties
+
+static_analysis_middleware:
+	docker compose run --rm sonar-scanner -Dproject.settings=/usr/src/middleware/sonar-project-middleware.properties
+
+static_analysis_backend:
+	docker compose run --rm sonar-scanner -Dproject.settings=/usr/src/backend/sonar-project.properties
+
+down_sonar:
+	docker compose down -d sonarqube db_sonar
+
+up_sonar:
+	docker compose up -d sonarqube db_sonar
+
 up_front:
 	docker compose up -d frontend
 
