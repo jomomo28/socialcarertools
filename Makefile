@@ -21,7 +21,7 @@ logs:
 	docker compose logs -f
 
 postman:
-	docker compose run --rm newman run social-carer.postman_collection.json -e local.postman_environment.json
+	docker compose run --rm newman run /etc/newman/social-carer.postman_collection.json -e /etc/newman/local.postman_environment.json
 
 test_backend:
 	docker compose run --rm backend pytest tests --cov=src --cov-report=xml

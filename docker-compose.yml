@@ -141,10 +141,10 @@ services:
     image: postman/newman:latest
     container_name: newman
     volumes:
-      - ./docs:/etc/newman  # aquí guardas tus colecciones y environment
+      - ../socialcarer/docs:/etc/newman
     working_dir: /etc/newman
     depends_on:
-      - backend 
+      - backend
 volumes:
   db_data:
   grafana-storage:
