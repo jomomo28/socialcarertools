@@ -20,22 +20,25 @@ restart: down up
 logs:
 	docker compose logs -f
 
+backend_shell:
+	docker compose exec backend /bin/bash
+
 postman:
 	docker compose run --rm newman run /etc/newman/social-carer.postman_collection.json -e /etc/newman/local.postman_environment.json
 
 test_backend:
-	docker compose run --rm backend pytest tests --cov=src --cov-report=xml
+	docker compose run --rm -e OTEL_SDK_DISABLED=true backend pytest tests --cov=src --cov-report=xml:/app/reports/coverage.xml
 
 static_analysis: static_analysis_frontend static_analysis_middleware test_backend static_analysis_backend
 
 static_analysis_frontend:
-	docker compose run --rm sonar-scanner -Dproject.settings=/usr/src/frontend/sonar-project-front.properties
+	docker compose run --rm sonar-scanner -Dproject.settings=/app/frontend/sonar-project-front.properties
 
 static_analysis_middleware:
-	docker compose run --rm sonar-scanner -Dproject.settings=/usr/src/middleware/sonar-project-middleware.properties
+	docker compose run --rm sonar-scanner -Dproject.settings=/app/middleware/sonar-project-middleware.properties
 
 static_analysis_backend:
-	docker compose run --rm sonar-scanner -Dproject.settings=/usr/src/backend/sonar-project.properties
+	docker compose run --rm sonar-scanner -Dproject.settings=/app/sonar-project.properties
 
 down_sonar:
 	docker compose down -d sonarqube db_sonar

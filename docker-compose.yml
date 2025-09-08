@@ -47,6 +47,7 @@ services:
       - otel-collector
     volumes:
       - ../socialcarer/src:/app/src
+      - ../socialcarer/reports:/app/reports
 
   db:
     image: mysql:8.0
@@ -129,10 +130,14 @@ services:
     depends_on:
       - sonarqube
     volumes:
-      - ../socialcarerfront/frontend:/usr/src/frontend
-      - ../socialcarerfront/middleware:/usr/src/middleware
-      - ../socialcarer:/usr/src/backend
-    working_dir: /usr/src
+      - ../socialcarerfront/frontend:/app/frontend
+      - ../socialcarerfront/middleware:/app/middleware
+      - ../socialcarer/src:/app/src
+      - ../socialcarer/tests:/app/tests
+      - ../socialcarer/reports:/app/reports
+      - ../socialcarer/sonar-project.properties:/app/sonar-project.properties
+      - ../socialcarer/.git:/app/.git
+    working_dir: /app
     environment:
       SONAR_HOST_URL: http://sonarqube:9000
       SONAR_TOKEN: ${SONAR_TOKEN}
