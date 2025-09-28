@@ -1,3 +1,5 @@
+test:
+	docker compose exec backend pytest tests
 up: up_otel_collector up_backend up_middleware up_front up_grafana 
 
 down:
