@@ -46,8 +46,8 @@ services:
       - db
       - otel-collector
     volumes:
-      - ../socialcarer/src:/app/src
-      - ../socialcarer/reports:/app/reports
+      - ./../socialcarer/src:/app/src
+      - ./../socialcarer/reports:/app/reports
 
   db:
     image: mysql:8.0
@@ -130,13 +130,13 @@ services:
     depends_on:
       - sonarqube
     volumes:
-      - ../socialcarerfront/frontend:/app/frontend
-      - ../socialcarerfront/middleware:/app/middleware
-      - ../socialcarer/src:/app/src
-      - ../socialcarer/tests:/app/tests
-      - ../socialcarer/reports:/app/reports
-      - ../socialcarer/sonar-project.properties:/app/sonar-project.properties
-      - ../socialcarer/.git:/app/.git
+      - ./../socialcarerfront/frontend:/app/frontend
+      - ./../socialcarerfront/middleware:/app/middleware
+      - ./../socialcarer/src:/app/src
+      - ./../socialcarer/tests:/app/tests
+      - ./../socialcarer/reports:/app/reports
+      - ./../socialcarer/sonar-project.properties:/app/sonar-project.properties
+      - ./../socialcarer/.git:/app/.git
     working_dir: /app
     environment:
       SONAR_HOST_URL: http://sonarqube:9000
@@ -146,7 +146,7 @@ services:
     image: postman/newman:latest
     container_name: newman
     volumes:
-      - ../socialcarer/docs:/etc/newman
+      - ./../socialcarer/docs:/etc/newman
     working_dir: /etc/newman
     depends_on:
       - backend
